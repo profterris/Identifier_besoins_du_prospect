@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Identifier les besoins du prospect – BTS CCST</title>
+<style>
+/* ── RESET & BASE ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #f4f5f9;
+  --surface:   #ffffff;
+  --card:      #ffffff;
+  --border:    #dde1ea;
+  --border-hi: #c3c9d9;
+  --text:      #232735;
+  --text-dim:  #6b7086;
+  --accent:    #b8790a;
+  --green:     #1f9d52;
+  --red:       #c9403f;
+  --blue:      #2f7dc9;
+  --purple:    #7c4dbd;
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --radius:    10px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── HEADER ──────────────────────────────────────────────── */
+.site-header {
+  background: linear-gradient(135deg, #ffffff 0%, #eef1f8 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 24px 36px;
+  text-align: center;
+}
+.site-header .kicker {
+  display: inline-block;
+  background: var(--accent);
+  color: #ffffff;
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 3px;
+  margin-bottom: 18px;
+}
+.site-header h1 {
+  font-family: var(--font-head);
+  font-size: clamp(22px, 5vw, 38px);
+  font-weight: 800;
+  color: #12141c;
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+.site-header .sub {
+  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 300;
+  max-width: 560px;
+  margin: 0 auto 24px;
+}
+
+/* ── NAV ANCRES ──────────────────────────────────────────── */
+.nav-anchors {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.nav-anchors a {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 16px;
+  text-decoration: none;
+  transition: border-color .15s, color .15s;
+}
+.nav-anchors a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── CONTENEUR PRINCIPAL ─────────────────────────────────── */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* ── TITRE DE BLOC ───────────────────────────────────────── */
+.bloc-titre {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 52px 0 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.bloc-titre:first-child { margin-top: 0; }
+.bloc-titre .icone {
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.bloc-titre h2 {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 800;
+  color: #12141c;
+}
+
+/* ── MÉMO ────────────────────────────────────────── */
+.memo {
+  background: #eafbf0;
+  border: 1px solid #bfe8cc;
+  border-left: 4px solid var(--green);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+.memo .memo-titre {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.memo code {
+  display: block;
+  background: #dcf4e3;
+  border-radius: 5px;
+  padding: 8px 14px;
+  color: #146c34;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  margin: 4px 0;
+}
+.memo .note {
+  color: var(--text-dim);
+  font-size: 12.5px;
+  margin-top: 6px;
+}
+
+/* ── CARTE EXERCICE ──────────────────────────────────────── */
+.exo-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  overflow: hidden;
+  transition: border-color .15s;
+  box-shadow: 0 1px 2px rgba(20, 24, 40, .04);
+}
+.exo-card:hover { border-color: var(--border-hi); }
+
+.exo-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+.exo-header::-webkit-details-marker { display: none; }
+
+.exo-num {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  min-width: 40px;
+}
+.badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 9px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.badge-1 { background: #e3f8ea; color: #167a41; border: 1px solid #b9e6c8; }
+.badge-2 { background: #fdf1dc; color: #8a5f00; border: 1px solid #f0d99e; }
+.badge-3 { background: #fbe7e6; color: var(--red); border: 1px solid #f1c3c1; }
+.badge-exam { background: #f1e9fb; color: var(--purple); border: 1px solid #dcc7f2; }
+
+.exo-titre-txt {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+}
+.chevron {
+  color: var(--text-dim);
+  font-size: 13px;
+  flex-shrink: 0;
+  transition: transform .2s;
+}
+details[open] .chevron { transform: rotate(180deg); }
+
+/* ── CORPS DE L'EXERCICE ─────────────────────────────────── */
+.exo-body {
+  padding: 0 18px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.contexte {
+  background: #eef5fc;
+  border-left: 3px solid var(--blue);
+  border-radius: 0 6px 6px 0;
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.contexte strong { color: #12141c; }
+
+.questions { margin: 18px 0 0; }
+.question {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: flex-start;
+}
+.question .q-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  background: var(--accent);
+  color: #ffffff;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 11px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.question p { font-size: 14px; margin: 0; }
+
+/* ── BOUTON CORRECTION ───────────────────────────────────── */
+.btn-corrige {
+  background: none;
+  border: 1px solid var(--border-hi);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  margin-top: 18px;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-corrige:hover { border-color: var(--green); color: var(--green); }
+
+/* ── CORRECTION ──────────────────────────────────────────── */
+.correction {
+  display: none;
+  background: #eafbf0;
+  border: 1px solid #bfe8cc;
+  border-radius: 6px;
+  padding: 16px 18px;
+  margin-top: 14px;
+  font-size: 13.5px;
+  line-height: 1.8;
+}
+.correction.visible { display: block; }
+.correction .corr-etape {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #d3ecd9;
+}
+.correction .corr-etape:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.correction .c-num {
+  display: inline-block;
+  background: var(--green);
+  color: #ffffff;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 18px;
+  margin-right: 6px;
+}
+.correction .res {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: #12141c;
+}
+.correction .conclu {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #2f7d4c;
+  font-style: italic;
+}
+
+/* ── SÉPARATEUR ──────────────────────────────────────────── */
+hr.section-sep {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 54px 0 0;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 20px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .exo-titre-txt { font-size: 13px; }
+  .contexte { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="kicker">🎯 pôle 1 – conception et commercialisation de solutions technico-commerciales – BTS CCST</div>
+  <h1>Identifier<br>les besoins du prospect</h1>
+  <p class="sub">22 exercices progressifs – aucun calcul – du repérage des types de questions à la conduite complète d'un entretien de découverte</p>
+  <nav class="nav-anchors">
+    <a href="#types-questions">🔍 types de questions (4 ex.)</a>
+    <a href="#plan-decouverte">🗺️ plan de découverte (4 ex.)</a>
+    <a href="#qualification">🎯 qualification avancée (4 ex.)</a>
+    <a href="#concurrence-motivations">⚖️ concurrence et motivations (4 ex.)</a>
+    <a href="#exploitation">🧩 exploiter la découverte (4 ex.)</a>
+    <a href="#complet">🏁 mises en situation complètes (2 ex.)</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 1 – LES 4 TYPES DE QUESTIONS
+══════════════════════════════════════════════════════════ -->
+<div class="bloc-titre" id="types-questions">
+  <span class="icone">🔍</span>
+  <h2>Bloc 1 – reconnaître et choisir le bon type de question</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 mémo à connaître</div>
+  <code>question ouverte&nbsp;: laisse répondre librement, sert à explorer un sujet</code>
+  <code>question fermée&nbsp;: appelle un oui/non, sert à confirmer une hypothèse</code>
+  <code>question alternative&nbsp;: propose un choix entre options, recentre l'échange</code>
+  <code>question factuelle&nbsp;: demande une donnée précise, évite les malentendus</code>
+  <p class="note">un bon entretien de découverte commence toujours par des questions ouvertes, avant de se préciser progressivement avec des questions factuelles, alternatives ou fermées.</p>
+</div>
+
+<!-- EX 1 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 1</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Identifier le type de chaque question</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Vous êtes commercial technico-commercial chez <em>Climatec</em>, qui commercialise des systèmes de climatisation industrielle. Lors d'un premier rendez-vous avec le directeur technique d'un site de production, vous posez successivement les questions suivantes&nbsp;:<br><br>
+      a. « quels sont vos objectifs de performance énergétique à court terme et à long terme&nbsp;? »<br>
+      b. « préférez-vous une solution centralisée ou plusieurs unités indépendantes par atelier&nbsp;? »<br>
+      c. « combien de bâtiments sont concernés par ce projet&nbsp;? »<br>
+      d. « êtes-vous déjà en relation avec un autre prestataire pour ce projet&nbsp;? »
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Pour chacune des quatre questions, indiquez le type (ouverte, fermée, alternative ou factuelle) et justifiez votre réponse en une phrase.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Laquelle de ces quatre questions permet le mieux d'ouvrir la discussion&nbsp;? justifiez.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">a. ouverte : elle laisse répondre librement, sans orienter la réponse.<br>b. alternative : elle propose un choix entre deux options identifiées.<br>c. factuelle : elle demande une donnée chiffrée précise, sans ambiguïté.<br>d. fermée : la réponse attendue est oui ou non.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="conclu">La question a., car elle est ouverte&nbsp;: elle permet d'explorer largement les enjeux du client avant de restreindre le champ des possibles, ce qui est l'objectif d'un début d'entretien de découverte.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 2 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 2</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Reformuler une question fermée en question ouverte</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Pendant l'entretien, vous demandez au directeur technique&nbsp;: « êtes-vous satisfait de votre système actuel&nbsp;? » il répond simplement « oui, plutôt » et la conversation s'arrête là.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Pourquoi cette question fermée limite-t-elle la qualité des informations recueillies&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Proposez une reformulation en question ouverte qui permettrait d'obtenir davantage d'informations exploitables.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Quel type de question pourriez-vous poser ensuite pour préciser un point particulier soulevé par sa réponse&nbsp;?</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Une question fermée n'appelle qu'une réponse binaire, sans détail sur les raisons&nbsp;: le commercial ne sait ni ce qui est apprécié, ni ce qui pourrait être amélioré.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Par exemple&nbsp;: « qu'appréciez-vous dans votre système actuel, et qu'aimeriez-vous y changer&nbsp;? » – cette formulation ouverte invite à développer.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">Une question factuelle (par exemple « à quelle fréquence les pannes surviennent-elles&nbsp;? ») permet de préciser un point évoqué sans le réorienter.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 3 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 3</span>
+    <span class="badge badge-2">➔ intermédiaire</span>
+    <span class="exo-titre-txt">Corriger un enchaînement de questions maladroit</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Un jeune commercial enchaîne, dès les deux premières minutes d'un entretien&nbsp;: « avez-vous un budget défini&nbsp;? », « êtes-vous décisionnaire&nbsp;? », « voulez-vous un rendez-vous la semaine prochaine&nbsp;? » le prospect se braque et écourte l'échange.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Quel est le problème dans l'enchaînement de ces trois questions&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Proposez un déroulé de questionnement plus progressif, avec un type de question adapté à chaque étape (découverte, approfondissement, engagement).</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Les trois questions sont fermées et abordent d'emblée le budget, la décision et l'engagement, alors que rien n'a encore été exploré sur le contexte ou les besoins du prospect&nbsp;; ce dernier se sent interrogé plutôt qu'écouté.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="conclu">Exemple de déroulé&nbsp;: d'abord une question ouverte sur le contexte (« quel projet vous amène à me contacter&nbsp;? »), puis une question factuelle pour préciser (« depuis quand ce besoin est-il identifié&nbsp;? »), puis, une fois la confiance installée, une question alternative pour avancer vers l'engagement (« souhaitez-vous que je vous propose un chiffrage sous huit jours, ou une visite technique d'abord&nbsp;? »).</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 4 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 4</span>
+    <span class="badge badge-2">➔ intermédiaire</span>
+    <span class="exo-titre-txt">Choisir le bon type de question selon l'objectif</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Pour chacun des objectifs suivants, un commercial hésite entre plusieurs types de questions.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Pour relancer un prospect qui n'a pas donné suite à un devis, quel type de question privilégier pour comprendre sans le braquer&nbsp;? proposez la question.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Pour clore un entretien de découverte et vérifier que rien n'a été oublié, quel type de question utiliser&nbsp;? proposez la question.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Pour faire choisir le prospect entre deux options de financement, quel type utiliser&nbsp;? proposez la question.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Une question ouverte, car elle laisse le prospect exprimer librement la raison de son silence sans le mettre sur la défensive&nbsp;: « pouvez-vous me dire ce qui vous a fait hésiter depuis notre dernier échange&nbsp;? »</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Une question de validation, plutôt ouverte&nbsp;: « y a-t-il un élément important que nous n'avons pas encore abordé&nbsp;? »</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">Une question alternative&nbsp;: « préférez-vous un paiement comptant, ou un financement en trois fois&nbsp;? »</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<hr class="section-sep">
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 2 – LE PLAN DE DÉCOUVERTE EN 3 AXES
+══════════════════════════════════════════════════════════ -->
+<div class="bloc-titre" id="plan-decouverte">
+  <span class="icone">🗺️</span>
+  <h2>Bloc 2 – construire un plan de découverte en trois axes</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 mémo à connaître</div>
+  <code>contexte&nbsp;: pourquoi le prospect est-il ouvert à la discussion&nbsp;? qu'est-ce qui a changé&nbsp;?</code>
+  <code>besoins&nbsp;: quelles fonctionnalités, quelles caractéristiques sont attendues&nbsp;?</code>
+  <code>motivations&nbsp;: quels objectifs profonds, quels freins ou quelles craintes orientent la décision&nbsp;?</code>
+  <p class="note">un besoin exprimé n'est pas toujours le besoin réel&nbsp;: il faut souvent creuser au-delà de la première formulation du client.</p>
+</div>
+
+<!-- EX 5 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 5</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Classer les informations recueillies</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Lors d'un rendez-vous chez <em>Agrotech</em> (matériel agricole connecté), un exploitant agricole déclare&nbsp;: « notre exploitation vient de s'agrandir de 40 hectares (a). nous avons besoin d'un système de guidage GPS compatible avec notre tracteur actuel (b). je veux surtout éviter de reproduire les erreurs de mon voisin, qui a investi dans un système trop complexe que personne ne sait utiliser dans son équipe (c). »
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Classez les informations a, b et c dans les trois axes du plan de découverte (contexte, besoins, motivations).</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Pour chaque axe, dites si l'information est suffisante ou s'il faudrait la compléter par une question supplémentaire.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">a = contexte (évolution récente de l'exploitation)&nbsp;; b = besoin (fonctionnalité technique attendue)&nbsp;; c = motivation (crainte de l'échec, besoin de simplicité).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="conclu">Le contexte (a) est assez précis. Le besoin (b) mériterait d'être complété par une question factuelle sur le modèle exact du tracteur. La motivation (c) pourrait être approfondie par une question ouverte du type « qu'est-ce qui, selon vous, a rendu ce système trop complexe pour son équipe&nbsp;? »</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 6 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 6</span>
+    <span class="badge badge-2">➔ intermédiaire</span>
+    <span class="exo-titre-txt">Repérer un axe non exploré</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Relisez le compte rendu d'entretien suivant, rédigé par un commercial junior&nbsp;: « le client gère un parc de 12 véhicules utilitaires. il souhaite un système de géolocalisation en temps réel avec alertes de maintenance. le budget annoncé est de 15 000 euros. »
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Quel axe du plan de découverte n'apparaît pas du tout dans ce compte rendu&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Pourquoi l'absence de cet axe est-elle un risque pour la suite de la négociation&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Formulez une question qui aurait permis de combler ce manque.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Les motivations sont totalement absentes&nbsp;; on ne sait ni pourquoi ce projet est prioritaire maintenant, ni ce qui pousse réellement le client à agir (sécurité, image, économies, contrainte réglementaire).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Sans connaître les motivations profondes, l'argumentaire risque de ne porter que sur des caractéristiques techniques, sans toucher ce qui déclenchera réellement la décision d'achat&nbsp;; l'offre paraîtra générique.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">Par exemple&nbsp;: « qu'est-ce qui a déclenché ce projet maintenant plutôt que l'année dernière&nbsp;? »</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 7 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 7</span>
+    <span class="badge badge-2">➔ intermédiaire</span>
+    <span class="exo-titre-txt">Distinguer besoin exprimé et besoin réel</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Un client dit&nbsp;: « je veux un logiciel de facturation plus rapide. » en creusant, le commercial découvre que le vrai problème est que deux collaborateurs ressaisissent les mêmes données dans deux outils différents, faute d'interconnexion.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Quel est le besoin exprimé par le client&nbsp;? quel est le besoin réel, une fois la situation approfondie&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Pourquoi un commercial qui s'arrête au besoin exprimé risque-t-il de proposer une solution inadaptée&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Quelle question aurait permis, dès le début de l'entretien, de faire émerger le besoin réel plus rapidement&nbsp;?</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Besoin exprimé&nbsp;: un logiciel de facturation plus rapide. Besoin réel&nbsp;: une interconnexion entre les deux outils pour supprimer la double saisie, véritable cause de la lenteur perçue.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">En se limitant à « plus rapide », le commercial pourrait vendre un logiciel plus puissant mais tout aussi isolé des autres outils&nbsp;: le problème de double saisie persisterait et le client resterait insatisfait malgré l'achat.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">Une question ouverte du type « pouvez-vous me décrire précisément comment se déroule la facturation, étape par étape, dans votre équipe&nbsp;? » aurait fait émerger la double saisie dès le début.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 8 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 8</span>
+    <span class="badge badge-exam">🏁 niveau examen</span>
+    <span class="exo-titre-txt">Rédiger un plan de découverte structuré</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Vous êtes commercial chez <em>Securibat</em>, qui commercialise des solutions de vidéosurveillance pour professionnels. Vous avez un premier rendez-vous téléphonique de quinze minutes avec le gérant d'une chaîne de trois boutiques de vêtements qui vient de subir un vol.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Rédigez un plan de découverte complet pour cet entretien&nbsp;: au moins deux questions pour l'axe contexte, deux pour l'axe besoins et deux pour l'axe motivations. précisez, pour chaque question, son type.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Contexte&nbsp;: « que s'est-il passé exactement lors de ce vol&nbsp;? » (ouverte)&nbsp;; « les trois boutiques disposaient-elles déjà d'un système de vidéosurveillance&nbsp;? » (fermée).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Besoins&nbsp;: « quelles zones précises souhaitez-vous couvrir en priorité&nbsp;? » (ouverte)&nbsp;; « souhaitez-vous une surveillance en temps réel, ou un enregistrement consultable a posteriori&nbsp;? » (alternative).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">Motivations&nbsp;: « au-delà de la sécurité des biens, qu'est-ce que cet événement change pour vous et pour vos équipes&nbsp;? » (ouverte)&nbsp;; « qu'est-ce qui vous rassurerait le plus dans une nouvelle solution&nbsp;? » (ouverte). Un plan de découverte réussi contient toujours les trois axes, avec au moins une question ouverte pour lancer chacun d'eux.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<hr class="section-sep">
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 3 – QUALIFICATION AVANCÉE
+══════════════════════════════════════════════════════════ -->
+<div class="bloc-titre" id="qualification">
+  <span class="icone">🎯</span>
+  <h2>Bloc 3 – qualifier le prospect en profondeur</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 mémo à connaître</div>
+  <p class="note">Une qualification avancée explore trois zones souvent négligées&nbsp;: les <strong>contraintes organisationnelles</strong> (normes, procédures internes), les <strong>bénéfices attendus rendus mesurables</strong> (chiffres, indicateurs) et le <strong>circuit de décision</strong> (qui décide, qui influence, qui peut bloquer). Un besoin non mesurable ne permet ni de construire un argumentaire chiffré, ni de démontrer le succès après la vente.</p>
+</div>
+
+<!-- EX 9 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 9</span>
+    <span class="badge badge-2">➔ intermédiaire</span>
+    <span class="exo-titre-txt">Repérer une contrainte organisationnelle non exploitée</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Le prospect, responsable d'atelier chez un sous-traitant automobile, mentionne en passant&nbsp;: « de toute façon, toute nouvelle machine doit être validée par notre service qualité, qui a des exigences très strictes sur la norme ISO en vigueur chez nous. » le commercial poursuit sans relever ce point.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Quelle information stratégique le commercial a-t-il laissée passer&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Quel risque cela fait-il courir à la suite de la négociation&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Formulez la question de clarification qui aurait dû suivre immédiatement.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Une contrainte organisationnelle majeure&nbsp;: la validation du projet dépend d'un service qualité aux exigences normatives précises, qui n'a pas encore été identifié ni interrogé.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Si cette contrainte n'est pas anticipée, l'offre proposée peut être refusée en fin de cycle par le service qualité, après plusieurs semaines de négociation avec le seul responsable d'atelier.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">Par exemple&nbsp;: « quelles sont précisément les exigences de votre service qualité, et faut-il que je prenne contact directement avec eux à ce stade&nbsp;? »</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 10 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 10</span>
+    <span class="badge badge-2">➔ intermédiaire</span>
+    <span class="exo-titre-txt">Rendre un bénéfice mesurable</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Un client déclare&nbsp;: « on veut surtout gagner du temps sur la gestion des stocks. »
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Pourquoi cette formulation est-elle insuffisante pour construire une offre chiffrée et convaincante&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Proposez deux questions permettant de transformer ce bénéfice vague en indicateur mesurable.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Imaginez une réponse plausible du client et déduisez-en un objectif chiffré exploitable dans l'argumentaire commercial.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">« Gagner du temps » ne permet ni de chiffrer le retour sur investissement, ni de démontrer l'efficacité de la solution après la vente&nbsp;; l'argumentaire resterait qualitatif et peu convaincant.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Par exemple&nbsp;: « combien de temps consacrez-vous actuellement chaque semaine à la gestion des stocks&nbsp;? » et « quel gain de temps considéreriez-vous comme un succès&nbsp;? »</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">Si le client répond « six heures par semaine actuellement, on serait satisfaits avec une réduction de moitié », l'objectif chiffré devient&nbsp;: passer de six à trois heures hebdomadaires, un gain mesurable réutilisable tel quel dans l'argumentaire.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 11 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 11</span>
+    <span class="badge badge-3">⚠ avancé</span>
+    <span class="exo-titre-txt">Cartographier le circuit de décision</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Vous négociez la fourniture d'un logiciel de gestion de production auprès d'une PME industrielle. Au fil des échanges, vous identifiez&nbsp;: le directeur de production, qui a exprimé le besoin initial et sera l'utilisateur principal&nbsp;; la directrice financière, qui doit valider tout investissement supérieur à 10 000 euros&nbsp;; un technicien de maintenance, réputé influent auprès de la direction, qui se méfie de tout nouvel outil informatique.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Pour chacune des trois personnes, précisez son rôle probable dans le circuit de décision (utilisateur, décideur budgétaire, prescripteur ou frein potentiel).</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Quelle personne le commercial doit-il impérativement rencontrer avant de présenter un chiffrage, et pourquoi&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Quelle question permettrait de vérifier l'hypothèse sur le rôle de chacun&nbsp;?</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Le directeur de production&nbsp;: utilisateur et prescripteur du besoin. La directrice financière&nbsp;: décideur budgétaire. Le technicien de maintenance&nbsp;: frein potentiel, dont l'avis informel pèse sur la direction malgré l'absence de pouvoir de décision formel.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">La directrice financière, car sans son accord aucun chiffrage ne pourra être validé&nbsp;; mais il est tout aussi risqué d'ignorer le technicien, dont la méfiance pourrait bloquer le projet en interne avant même d'atteindre la phase budgétaire.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">Par exemple, au directeur de production&nbsp;: « en dehors de vous, qui d'autre sera consulté avant la décision finale, et sur quels critères chacun se prononcera-t-il&nbsp;? »</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 12 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 12</span>
+    <span class="badge badge-3">⚠ avancé</span>
+    <span class="exo-titre-txt">Analyser un échec de qualification</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Un commercial a mené toute sa négociation avec le responsable achats d'une entreprise. Après trois mois d'échanges et un devis très détaillé, le projet est refusé&nbsp;: le PDG, jamais rencontré, a jugé l'investissement disproportionné par rapport à la stratégie de l'entreprise.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>À quel moment de la démarche commerciale l'erreur de qualification a-t-elle eu lieu&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Quelle question, posée dès le premier entretien avec le responsable achats, aurait permis d'éviter cette situation&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Quelle conséquence cette erreur a-t-elle sur le temps commercial investi&nbsp;?</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Dès la phase de découverte initiale&nbsp;: le commercial n'a pas identifié que le responsable achats n'était pas le décideur final pour ce type d'investissement stratégique.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Par exemple&nbsp;: « qui, en dehors de vous, doit valider un projet de cette ampleur, et quels sont ses critères de décision&nbsp;? »</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">Trois mois de travail commercial ont été investis sur un interlocuteur qui n'avait pas le pouvoir de décider&nbsp;; ce temps aurait pu être consacré à des opportunités mieux qualifiées.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<hr class="section-sep">
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 4 – CONCURRENCE ET MOTIVATIONS PSYCHOLOGIQUES
+══════════════════════════════════════════════════════════ -->
+<div class="bloc-titre" id="concurrence-motivations">
+  <span class="icone">⚖️</span>
+  <h2>Bloc 4 – analyse concurrentielle et motivations psychologiques</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 mémo à connaître</div>
+  <p class="note">Derrière un besoin technique se cache souvent une <strong>motivation psychologique</strong> (sécurité, fierté, crainte de l'échec, image). Face à un concurrent cité par le prospect, l'objectif n'est jamais de le dénigrer, mais de faire préciser, par des questions, les critères de comparaison réellement utilisés par le client.</p>
+</div>
+
+<!-- EX 13 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 13</span>
+    <span class="badge badge-2">➔ intermédiaire</span>
+    <span class="exo-titre-txt">Relier un discours client à une motivation psychologique</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Un décideur déclare, lors d'un entretien&nbsp;: « si ce projet échoue, c'est moi qui devrai l'expliquer au comité de direction. je ne peux pas me permettre de me tromper. »
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Quelle motivation profonde, au-delà du besoin technique exprimé, apparaît dans cette phrase&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>En quoi cette information doit-elle influencer la manière dont le commercial présente son offre par la suite&nbsp;?</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Une motivation liée à la sécurité personnelle et à la crainte de l'échec devant sa hiérarchie&nbsp;: le décideur cherche avant tout à ne pas prendre de risque plutôt qu'à obtenir la meilleure solution technique.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="conclu">Le commercial doit rassurer explicitement sur la fiabilité de la solution (références clients, garanties, accompagnement au déploiement) plutôt que de se concentrer uniquement sur les performances techniques.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 14 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 14</span>
+    <span class="badge badge-3">⚠ avancé</span>
+    <span class="exo-titre-txt">Questionner sur la concurrence sans dénigrer</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Le prospect indique&nbsp;: « on a aussi reçu une offre d'un de vos concurrents, moins chère que la vôtre. »
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Pourquoi serait-il maladroit, à ce stade, de dénigrer directement l'offre concurrente&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Proposez une question qui permette d'obtenir des informations utiles sur cette offre sans porter de jugement négatif sur le concurrent.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Quel type de question avez-vous utilisé, et pourquoi ce choix&nbsp;?</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Dénigrer un concurrent sans connaître le détail de son offre peut se retourner contre le commercial et n'apporte aucune information exploitable pour construire une contre-argumentation solide.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Par exemple&nbsp;: « qu'est-ce qui, dans cette offre, vous semble le plus intéressant, et sur quels points hésitez-vous encore&nbsp;? »</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">Une question ouverte&nbsp;: elle permet au prospect de détailler lui-même les critères de comparaison qu'il utilise, ce qui révèle ses priorités réelles sans que le commercial ait besoin d'attaquer directement le concurrent.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 15 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 15</span>
+    <span class="badge badge-3">⚠ avancé</span>
+    <span class="exo-titre-txt">Hiérarchiser les critères de différenciation à creuser</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Dans un même entretien, un client mentionne successivement&nbsp;: le prix, la proximité géographique du prestataire, la réputation de la marque et la disponibilité du service après-vente. le commercial ne peut pas tout approfondir dans le temps qui lui reste.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Quel critère vous semble prioritaire à approfondir pour un achat de solution technico-commerciale complexe, et pourquoi&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Formulez la question qui permettrait de vérifier l'importance réelle de ce critère pour le client, plutôt que de la supposer.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">La disponibilité du service après-vente est souvent le critère le plus déterminant pour une solution technique complexe, car une panne non résolue rapidement a un impact direct sur l'activité du client&nbsp;; le prix ou la réputation pèsent généralement moins une fois la solution installée.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="conclu">Par exemple&nbsp;: « si vous deviez classer ces quatre critères du plus important au moins important pour votre décision finale, quel serait votre classement&nbsp;? » – cette question évite toute supposition du commercial.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 16 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 16</span>
+    <span class="badge badge-3">⚠ avancé</span>
+    <span class="exo-titre-txt">Adapter l'approche face à une résistance interne</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Le directeur technique d'un site industriel confie&nbsp;: « personnellement je suis convaincu, mais deux chefs d'équipe sont très réticents à l'idée de changer leurs habitudes de travail. »
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Quel type de risque, au-delà du risque technique ou financier, ce commentaire révèle-t-il&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Quelle question le commercial pourrait-il poser pour transformer ce frein en levier plutôt que de l'ignorer&nbsp;?</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Un risque humain et organisationnel&nbsp;: une résistance au changement en interne, qui peut freiner ou faire échouer le déploiement de la solution même si la décision d'achat est prise.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="conclu">Par exemple&nbsp;: « qu'est-ce qui rassurerait le plus vos chefs d'équipe pour qu'ils s'approprient rapidement ce changement&nbsp;? » – cette question oriente l'offre vers un accompagnement au changement plutôt que vers la seule solution technique.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<hr class="section-sep">
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 5 – EXPLOITER LA DÉCOUVERTE
+══════════════════════════════════════════════════════════ -->
+<div class="bloc-titre" id="exploitation">
+  <span class="icone">🧩</span>
+  <h2>Bloc 5 – exploiter la découverte&nbsp;: valider, synthétiser, argumenter</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 mémo à connaître</div>
+  <p class="note">Toute phase de découverte se clôt par une <strong>reformulation de synthèse</strong>, qui reprend les trois axes et se termine par une question de validation. Les informations recueillies deviennent ensuite la matière première des arguments (relier une caractéristique de l'offre à un besoin et à une motivation) et permettent d'anticiper les objections avant qu'elles ne soient exprimées.</p>
+</div>
+
+<!-- EX 17 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 17</span>
+    <span class="badge badge-2">➔ intermédiaire</span>
+    <span class="exo-titre-txt">Rédiger une reformulation de synthèse</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      À l'issue d'un entretien chez un prospect du secteur de la restauration collective, vous avez retenu&nbsp;: un besoin de traçabilité renforcée des allergènes, une contrainte de mise en service pendant les vacances scolaires, et une motivation forte liée à un contrôle sanitaire récent qui s'est mal passé.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Rédigez la phrase de reformulation de synthèse que vous prononceriez à l'oral pour clore la phase de découverte et vérifier votre compréhension.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="conclu">Exemple attendu&nbsp;: « si je résume bien, vous souhaitez avant tout renforcer la traçabilité des allergènes suite au contrôle sanitaire récent, avec une mise en service impérative pendant les vacances scolaires pour ne pas perturber le service&nbsp;; est-ce bien cela, et y a-t-il un point que nous n'aurions pas encore abordé&nbsp;? » – la reformulation doit reprendre les trois axes et se terminer par une question de validation ouverte.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 18 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 18</span>
+    <span class="badge badge-3">⚠ avancé</span>
+    <span class="exo-titre-txt">Construire un argument à partir d'un besoin identifié</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Lors de la découverte, un client d'un site logistique a exprimé le besoin suivant&nbsp;: « on perd beaucoup de temps à chercher les palettes mal rangées, et ça génère du stress dans les équipes en période de forte activité. » Votre solution propose un système de repérage des palettes par étiquettes connectées, avec une application de localisation instantanée.
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Identifiez, dans le besoin exprimé, la dimension technique (rationnelle) et la dimension émotionnelle du problème.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Construisez un argument complet reliant une caractéristique de votre solution à ce double besoin.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Dimension technique&nbsp;: la perte de temps liée au rangement et à la recherche des palettes. Dimension émotionnelle&nbsp;: le stress généré dans les équipes en période de forte activité.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="conclu">Exemple d'argument&nbsp;: « grâce aux étiquettes connectées et à l'application de localisation instantanée, vos équipes retrouvent n'importe quelle palette en quelques secondes, ce qui supprime la recherche fastidieuse et réduit nettement la pression ressentie pendant vos pics d'activité » – l'argument relie la caractéristique technique au bénéfice concret et à la dimension émotionnelle exprimée par le client.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 19 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 19</span>
+    <span class="badge badge-3">⚠ avancé</span>
+    <span class="exo-titre-txt">Détecter une objection implicite</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Après avoir présenté votre solution, le client déclare&nbsp;: « c'est intéressant, mais on a déjà eu des mauvaises surprises avec un logiciel qui devait tout simplifier et qui, finalement, a compliqué le travail de tout le monde pendant des mois. »
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Quelle objection implicite, non formulée directement comme un refus, se cache derrière ce commentaire&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>À quelle information recueillie plus tôt dans la découverte cette objection pourrait-elle être reliée&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Proposez une question qui permette de désamorcer cette objection avant qu'elle ne devienne un frein définitif.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">La crainte que la nouvelle solution soit, elle aussi, plus complexe à déployer que promis, et qu'elle perturbe l'activité au lieu de l'améliorer&nbsp;: c'est une objection liée au risque perçu, pas un refus direct de l'offre.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Cette objection peut être reliée à une motivation déjà identifiée en phase de découverte (la crainte du décideur de devoir justifier un échec devant sa hiérarchie, voir exercice 13), ce qui en confirme l'importance.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="conclu">Par exemple&nbsp;: « qu'est-ce qui, précisément, avait posé problème avec ce précédent logiciel, pour que je puisse vous montrer comment nous évitons ce type de difficulté&nbsp;? »</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 20 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 20</span>
+    <span class="badge badge-exam">🏁 niveau examen</span>
+    <span class="exo-titre-txt">Rédiger un compte rendu de découverte</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Reprenez les informations du cas <em>Securibat</em> (exercice 8, vidéosurveillance pour une chaîne de boutiques ayant subi un vol).
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Rédigez le compte rendu de découverte que vous transmettriez à votre responsable commercial, structuré en trois parties (contexte, besoins, motivations) et se terminant par une recommandation argumentée sur la suite à donner.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="conclu">Exemple de structure attendue&nbsp;: contexte (vol récent dans une des trois boutiques, absence de système existant)&nbsp;; besoins (couverture des zones sensibles, choix entre enregistrement et surveillance en temps réel à trancher)&nbsp;; motivations (sécurité des biens, mais aussi besoin de réassurance des équipes après l'incident). Recommandation&nbsp;: proposer une visite technique des trois sites avant chiffrage, en insistant dans l'argumentaire sur la réassurance des équipes autant que sur la performance technique du matériel, cette dimension humaine étant apparue centrale.</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<hr class="section-sep">
+
+<!-- ══════════════════════════════════════════════════════════
+     BLOC 6 – MISES EN SITUATION COMPLÈTES
+══════════════════════════════════════════════════════════ -->
+<div class="bloc-titre" id="complet">
+  <span class="icone">🏁</span>
+  <h2>Bloc 6 – mises en situation complètes</h2>
+</div>
+
+<div class="memo">
+  <div class="memo-titre">🗂 mémo à connaître</div>
+  <p class="note">Ces cas mobilisent l'ensemble des notions du dossier&nbsp;: types de questions, plan de découverte en trois axes, qualification avancée (contraintes, bénéfices mesurables, circuit de décision), analyse concurrentielle, motivations psychologiques et exploitation de la découverte.</p>
+</div>
+
+<!-- EX 21 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 21</span>
+    <span class="badge badge-exam">🏁 cas complet</span>
+    <span class="exo-titre-txt">Vente de solutions numériques à une PME</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Vous êtes commercial technico-commercial chez <em>Numeria</em>, éditeur de solutions logicielles pour PME. Vous avez un rendez-vous avec Mme Lefèvre, directrice d'une entreprise de trente salariés spécialisée dans la maintenance de matériel médical. Elle vous a contacté après avoir vu une publicité pour un logiciel de gestion des interventions terrain. Lors de l'entretien, elle indique&nbsp;: « nos techniciens perdent un temps fou à remplir leurs rapports d'intervention le soir, sur papier, avant de les ressaisir au bureau le lendemain. j'ai peur qu'un nouvel outil complique encore les choses, mes techniciens ne sont pas très à l'aise avec l'informatique. le budget n'est pas illimité, et je devrai de toute façon présenter le projet à mon associé avant de signer quoi que ce soit. »
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Classez les informations de ce discours selon les trois axes du plan de découverte.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Identifiez la contrainte organisationnelle et le frein psychologique présents dans ce discours.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Qui, dans cette situation, doit être considéré comme un interlocuteur potentiellement bloquant, et pourquoi&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">4</span>
+        <p>Formulez deux questions supplémentaires (de deux types différents) qui permettraient d'approfondir cet entretien.</p>
+      </div>
+      <div class="question">
+        <span class="q-num">5</span>
+        <p>Rédigez la phrase de reformulation de synthèse que vous utiliseriez pour clore cette phase de découverte.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction complète</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">Contexte&nbsp;: publicité vue, activité de maintenance de matériel médical, trente salariés. Besoins&nbsp;: supprimer la double saisie des rapports d'intervention, simplifier le travail des techniciens sur le terrain. Motivations&nbsp;: crainte de complexifier le travail des techniciens, contrainte budgétaire.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Contrainte organisationnelle&nbsp;: la nécessité de présenter le projet à l'associé avant toute signature. Frein psychologique&nbsp;: la crainte que l'outil soit trop compliqué pour des techniciens peu à l'aise avec l'informatique.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="res">L'associé, non rencontré, doit être considéré comme un interlocuteur potentiellement bloquant&nbsp;: sans son accord, la décision de Mme Lefèvre ne suffira pas à conclure la vente.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">4</span>
+        <p class="res">Par exemple&nbsp;: « sur quels critères votre associé se prononcera-t-il&nbsp;? » (ouverte) et « vos techniciens utilisent-ils déjà un smartphone ou une tablette au quotidien&nbsp;? » (fermée).</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">5</span>
+        <p class="conclu">Exemple&nbsp;: « si je résume, vous cherchez avant tout à supprimer la double saisie des rapports d'intervention, avec un outil suffisamment simple pour vos techniciens, et sous réserve de l'accord de votre associé sur le budget&nbsp;; est-ce bien cela&nbsp;? »</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- EX 22 -->
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 22</span>
+    <span class="badge badge-exam">🏁 cas complet</span>
+    <span class="exo-titre-txt">Renouvellement chez un client existant</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">
+      Vous suivez depuis deux ans le compte d'un client industriel équipé d'un système de traçabilité que vous avez vendu. Le contrat arrive à échéance dans trois mois. Lors d'un point annuel, le responsable qualité vous indique&nbsp;: « globalement ça fonctionne, même si on a eu deux ou trois blocages cet été que votre support a mis du temps à résoudre. sur une échelle de 1 à 10, je dirais 7. de notre côté, l'entreprise vient de racheter un site en Espagne, et je ne sais pas encore si votre solution pourra s'y adapter. »
+    </div>
+    <div class="questions">
+      <div class="question">
+        <span class="q-num">1</span>
+        <p>Quelle question devriez-vous poser immédiatement après la note de 7 sur 10, et pourquoi cette question est-elle indispensable&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">2</span>
+        <p>Quelle opportunité commerciale, au-delà du simple renouvellement, ce discours laisse-t-il entrevoir&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">3</span>
+        <p>Quel point de vigilance, lié à la satisfaction exprimée, devez-vous absolument traiter avant de proposer le renouvellement&nbsp;?</p>
+      </div>
+      <div class="question">
+        <span class="q-num">4</span>
+        <p>Rédigez la question qui permettrait d'ouvrir la discussion sur le nouveau site espagnol.</p>
+      </div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction complète</button>
+    <div class="correction">
+      <div class="corr-etape">
+        <span class="c-num">1</span>
+        <p class="res">« pourquoi donnez-vous cette note&nbsp;? » – la note seule ne renseigne sur rien&nbsp;: sans creuser les raisons, impossible de savoir si le point faible est mineur ou s'il menace réellement le renouvellement.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">2</span>
+        <p class="res">Une opportunité d'extension de l'offre au nouveau site espagnol, ce qui dépasse le simple renouvellement du contrat existant pour ouvrir une vente additionnelle.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">3</span>
+        <p class="res">Les blocages du support survenus l'été doivent être traités en priorité&nbsp;: s'ils ne sont pas résolus avant la discussion de renouvellement, ils risquent de peser plus lourd dans la décision finale que ne le laisse penser la note de 7 sur 10, en particulier si un concurrent est sollicité pour le nouveau site.</p>
+      </div>
+      <div class="corr-etape">
+        <span class="c-num">4</span>
+        <p class="conclu">Par exemple&nbsp;: « quelles sont les spécificités du site espagnol (réglementation, langue, process) dont nous devrions tenir compte pour évaluer si notre solution peut s'y adapter&nbsp;? »</p>
+      </div>
+    </div>
+  </div>
+</details>
+
+</main>
+
+<footer class="site-footer">
+  BTS CCST – pôle 1 – conception et commercialisation de solutions technico-commerciales &nbsp;|&nbsp; 22 exercices progressifs – identifier les besoins du prospect – aucun calcul
+</footer>
+
+<script>
+function toggleCorr(btn) {
+  const corr = btn.nextElementSibling;
+  const isVisible = corr.classList.contains('visible');
+  corr.classList.toggle('visible', !isVisible);
+  btn.textContent = isVisible ? '✅ Voir la correction' : '🔒 Masquer la correction';
+}
+</script>
+
+</body>
+</html>
